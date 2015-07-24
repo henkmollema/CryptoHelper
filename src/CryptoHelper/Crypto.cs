@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CrpytoHelper
+namespace CryptoHelper
 {
     /// <summary>
     /// Provides helper methods for hashing/salting and verifying passwords.
