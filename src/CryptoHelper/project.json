@@ -1,0 +1,33 @@
+﻿{
+  "version": "1.0.0",
+  "authors": [ "Henk Mollema" ],
+  "owners": [ "Henk Mollema" ],
+  "description": "Cryptography helper methods for Rfc2898DeriveBytes.",
+  "projectUrl": "https://github.com/henkmollema/CryptoHelper",
+  "licenseUrl": "https://github.com/henkmollema/CryptoHelper/blob/master/LICENSE",
+  "tags": [ "c#", "hashing", "salting", "crypto", "helpers", "Rfc2898DeriveBytes" ],
+  "copyright": "Copyright 2015 Henk Mollema",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/henkmollema/CryptoHelper"
+  },
+
+  "frameworks": {
+    "net40": { },
+
+    "net45": { },
+
+    "dnx451": { },
+
+    "dnx46": { },
+
+    "dnxcore50": {
+      "dependencies": {
+        "Microsoft.CSharp": "4.0.0-beta-*",
+        "System.Security.Cryptography.DeriveBytes": "4.0.0-beta-*",
+        "System.Security.Cryptography.Hashing": "4.0.0-beta-*",
+        "System.Security.Cryptography.RandomNumberGenerator": "4.0.0-beta-*"
+      }
+    }
+  }
+}
