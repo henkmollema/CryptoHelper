@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.0.2",
+  "version": "1.1.0",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
-  "description": "Cryptography helper methods for Rfc2898DeriveBytes.",
+  "description": "Cryptography helper methods for hasing passwords using a PBKDF2 implemenation.",
   "projectUrl": "https://github.com/henkmollema/CryptoHelper",
   "licenseUrl": "https://github.com/henkmollema/CryptoHelper/blob/master/LICENSE",
   "tags": [ "c#", "hashing", "salting", "crypto", "helpers", "Rfc2898DeriveBytes" ],
@@ -17,12 +17,24 @@
 
     "net45": { },
 
-    "dnx451": { },
+    "dnx451": {
+      "dependencies": {
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta5",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta5"
+      }
+    },
 
-    "dnx46": { },
+    "dnx46": {
+      "dependencies": {
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta5",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta5"
+      }
+    },
 
     "dnxcore50": {
       "dependencies": {
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta5",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta5",
         "Microsoft.CSharp": "4.0.0-beta-*",
         "System.Security.Cryptography.DeriveBytes": "4.0.0-beta-*",
         "System.Security.Cryptography.Hashing": "4.0.0-beta-*",
