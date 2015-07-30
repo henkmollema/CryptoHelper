@@ -19,22 +19,22 @@
 
     "dnx451": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta5",
-        "Microsoft.AspNet.DataProtection": "1.0.0-beta5"
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta6",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta6"
       }
     },
 
     "dnx46": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta5",
-        "Microsoft.AspNet.DataProtection": "1.0.0-beta5"
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta6",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta6"
       }
     },
 
     "dnxcore50": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta5",
-        "Microsoft.AspNet.DataProtection": "1.0.0-beta5",
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta6",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta6",
         "Microsoft.CSharp": "4.0.0-beta-*",
         "System.Security.Cryptography.DeriveBytes": "4.0.0-beta-*",
         "System.Security.Cryptography.Hashing": "4.0.0-beta-*",
