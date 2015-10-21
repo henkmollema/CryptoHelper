@@ -119,7 +119,7 @@ namespace CryptoHelper
 
         private static bool VerifyHashedPasswordInternal(string hashedPassword, string password)
         {
-            byte[] decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
 
             // Verify a version 0 (see comment above) password hash.
             if (decodedHashedPassword.Length != (1 + SaltSize + PBKDF2SubkeyLength) || decodedHashedPassword[0] != 0x00)
@@ -184,7 +184,7 @@ namespace CryptoHelper
 
         private static bool VerifyHashedPasswordInternal(string hashedPassword, string password)
         {
-            byte[] decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
 
             if (decodedHashedPassword.Length == 0)
             {

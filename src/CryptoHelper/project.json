@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.2.0",
+  "version": "1.0.0-beta8",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
   "description": "Cryptography helper methods for hasing passwords using a PBKDF2 implemenation.",
@@ -19,26 +19,24 @@
 
     "dnx451": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta6",
-        "Microsoft.AspNet.DataProtection": "1.0.0-beta6"
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta8",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta8"
       }
     },
 
     "dnx46": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta6",
-        "Microsoft.AspNet.DataProtection": "1.0.0-beta6"
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta8",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta8"
       }
     },
 
     "dnxcore50": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta6",
-        "Microsoft.AspNet.DataProtection": "1.0.0-beta6",
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-beta8",
+        "Microsoft.AspNet.DataProtection": "1.0.0-beta8",
         "Microsoft.CSharp": "4.0.0-beta-*",
-        "System.Security.Cryptography.DeriveBytes": "4.0.0-beta-*",
-        "System.Security.Cryptography.Hashing": "4.0.0-beta-*",
-        "System.Security.Cryptography.RandomNumberGenerator": "4.0.0-beta-*"
+        "System.Security.Cryptography.Algorithms": "4.0.0-beta-23409"
       }
     }
   }
