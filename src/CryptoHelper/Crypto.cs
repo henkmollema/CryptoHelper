@@ -17,21 +17,25 @@ namespace CryptoHelper
          * HASHED PASSWORD FORMATS
          * =======================
          *
-         * Version 0:
-         * PBKDF2 with HMAC-SHA1, 128-bit salt, 256-bit subkey, 10000 iterations.
+         * Version 0: (.NET 4 and 4.5)
+         * PBKDF2 with HMAC-SHA1, 128-bit salt, 256-bit subkey, 1000 iterations.
          * (See also: SDL crypto guidelines v5.1, Part III)
          * Format: { 0x00, salt, subkey }
-         * (Modified to use 10000 iterations in stead of 1000.)
          *
-         * Version 1:
+         * Version 3: (DNX 4.5.1, 4.6 and Core 5.0)
          * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 10000 iterations.
          * Format: { 0x01, prf (UInt32), iter count (UInt32), salt length (UInt32), salt, subkey }
          * (All UInt32s are stored big-endian.)
          */
 
-        private const int PBKDF2IterCount = 10000; // use 10000 in stead of 1000.
+#if NET40 || NET45
+        private const int PBKDF2IterCount = 1000;
+#else
+        private const int PBKDF2IterCount = 10000;
+#endif
         private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits
         private const int SaltSize = 128 / 8; // 128 bits
+
 
         /// <summary>
         /// Returns a hashed representation of the specified <paramref name="password"/>.
@@ -148,14 +152,7 @@ namespace CryptoHelper
 
         private static string HashPasswordInternal(string password)
         {
-            var bytes = HashPasswordInternal(
-                password: password,
-                rng: _rng,
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterCount: PBKDF2IterCount,
-                saltSize: 128 / 8,
-                numBytesRequested: 256 / 8);
-
+            var bytes = HashPasswordInternal(password, _rng, KeyDerivationPrf.HMACSHA256, PBKDF2IterCount, SaltSize, PBKDF2SubkeyLength);
             return Convert.ToBase64String(bytes);
         }
 
@@ -168,9 +165,9 @@ namespace CryptoHelper
             int numBytesRequested)
         {
             // Produce a version 3 (see comment above) text hash.
-            byte[] salt = new byte[saltSize];
+            var salt = new byte[saltSize];
             rng.GetBytes(salt);
-            byte[] subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
+            var subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
 
             var outputBytes = new byte[13 + salt.Length + subkey.Length];
             outputBytes[0] = 0x01; // format marker
@@ -191,33 +188,32 @@ namespace CryptoHelper
                 return false;
             }
 
-            int iterCount = default(int);
             try
             {
                 // Read header information
-                KeyDerivationPrf prf = (KeyDerivationPrf)ReadNetworkByteOrder(decodedHashedPassword, 1);
-                iterCount = (int)ReadNetworkByteOrder(decodedHashedPassword, 5);
-                int saltLength = (int)ReadNetworkByteOrder(decodedHashedPassword, 9);
+                var prf = (KeyDerivationPrf)ReadNetworkByteOrder(decodedHashedPassword, 1);
+                var iterCount = (int)ReadNetworkByteOrder(decodedHashedPassword, 5);
+                var saltLength = (int)ReadNetworkByteOrder(decodedHashedPassword, 9);
 
                 // Read the salt: must be >= 128 bits
                 if (saltLength < 128 / 8)
                 {
                     return false;
                 }
-                byte[] salt = new byte[saltLength];
+                var salt = new byte[saltLength];
                 Buffer.BlockCopy(decodedHashedPassword, 13, salt, 0, salt.Length);
 
                 // Read the subkey (the rest of the payload): must be >= 128 bits
-                int subkeyLength = hashedPassword.Length - 13 - salt.Length;
+                var subkeyLength = hashedPassword.Length - 13 - salt.Length;
                 if (subkeyLength < 128 / 8)
                 {
                     return false;
                 }
-                byte[] expectedSubkey = new byte[subkeyLength];
+                var expectedSubkey = new byte[subkeyLength];
                 Buffer.BlockCopy(decodedHashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
 
                 // Hash the incoming password and verify it
-                byte[] actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
+                var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
                 return ByteArraysEqual(actualSubkey, expectedSubkey);
             }
             catch
