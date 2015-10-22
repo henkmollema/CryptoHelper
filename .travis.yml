@@ -5,7 +5,5 @@ mono:
 os:
   - linux
   - osx
-before_script:
-  - chmod ugo+x ./build.sh
 script:
   - ./build.sh verify
