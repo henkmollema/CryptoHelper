@@ -204,7 +204,7 @@ namespace CryptoHelper
                 Buffer.BlockCopy(decodedHashedPassword, 13, salt, 0, salt.Length);
 
                 // Read the subkey (the rest of the payload): must be >= 128 bits
-                var subkeyLength = hashedPassword.Length - 13 - salt.Length;
+                var subkeyLength = decodedHashedPassword.Length - 13 - salt.Length;
                 if (subkeyLength < 128 / 8)
                 {
                     return false;

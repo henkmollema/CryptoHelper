@@ -2,7 +2,7 @@
   "version": "1.0.0-rc1-*",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
-  "description": "Cryptography helper methods for hasing passwords using a PBKDF2 implementation.",
+  "description": "Cryptography helper methods for hashing passwords using a PBKDF2 implementation.",
   "projectUrl": "https://github.com/henkmollema/CryptoHelper",
   "licenseUrl": "https://github.com/henkmollema/CryptoHelper/blob/master/LICENSE",
   "tags": [ "c#", "hashing", "salting", "crypto", "helpers", "Rfc2898DeriveBytes" ],
