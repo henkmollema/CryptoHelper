@@ -17,13 +17,13 @@
 
     "net45": { },
 
-    "dnx451": {
+    "net451": {
       "dependencies": {
         "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*"
       }
     },
 
-    "dnxcore50": {
+    "dotnet5.4": {
       "dependencies": {
         "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*",
         "Microsoft.CSharp": "4.0.1-beta-*",
