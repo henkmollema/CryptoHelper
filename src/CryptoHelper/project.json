@@ -23,12 +23,6 @@
       }
     },
 
-    "net46": {
-      "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*"
-      }
-    },
-
     "dotnet5.4": {
       "dependencies": {
         "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*",
