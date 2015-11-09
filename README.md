@@ -9,13 +9,13 @@
 
 <hr>
 
-This utility ports the password hashing functionality from the  [`System.Web.Helpers.Crypto`](http://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Web.Helpers/Crypto.cs) class to DNX. On DNX the new ASP.NET Data Protection stack is used. Where as classic .NET 4.0 and 4.5 applications  will use `Rfc2898DeriveBytes` 
+This utility ports the password hashing functionality from the  [`System.Web.Helpers.Crypto`](http://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Web.Helpers/Crypto.cs) class to DNX. On DNX the new ASP.NET 5 Data Protection stack is used. Where as classic .NET 4.0 and 4.5 applications  will use `Rfc2898DeriveBytes` 
 
 <hr>
 
 #### [Download CryptoHelper on NuGet](https://www.nuget.org/packages/CryptoHelper)
 
-<hr>
+--
 
 #### Download using the NuGet Package Manager Console:
 ```
