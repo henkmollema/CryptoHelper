@@ -45,6 +45,6 @@ public string HashPassword(string password)
 
 public bool VerifyPassword(string hash, string password)
 {
-    return Crypto.HashPassword(hash, password);
+    return Crypto.VerifyHashedPassword(hash, password);
 }
 ```
