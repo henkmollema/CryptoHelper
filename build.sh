@@ -22,18 +22,18 @@ if test ! -e .nuget; then
     cp $cachePath .nuget/nuget.exe
 fi
 
-if test ! -d packages/Sake; then
-    mono .nuget/nuget.exe install KoreBuild -Source https://www.myget.org/F/aspnetvnext/ -ExcludeVersion -o packages -nocache -pre
-    mono .nuget/nuget.exe install Sake -Source https://www.nuget.org/api/v2/ -o packages -ExcludeVersion
+if test ! -d packages/KoreBuild; then
+    mono .nuget/nuget.exe install KoreBuild -version 0.2.1-beta7 -Source https://www.myget.org/F/aspnetmaster/api/v2 -o packages -nocache -pre -ExcludeVersion
+    mono .nuget/nuget.exe install Sake -version 0.2.0 -Source https://www.nuget.org/api/v2/ -o packages -ExcludeVersion
 fi
 
 if ! type dnvm > /dev/null 2>&1; then
     source packages/KoreBuild/build/dnvm.sh
 fi
 
+DNX_FEED=https://www.nuget.org/api/v2/
 if ! type dnx > /dev/null 2>&1; then
-    dnvm install latest -runtime coreclr -alias default
-    dnvm install default -runtime mono -alias default
+    dnvm upgrade -r mono
 fi
 
 mono packages/Sake/tools/Sake.exe -I packages/KoreBuild/build -f makefile.shade "$@"
