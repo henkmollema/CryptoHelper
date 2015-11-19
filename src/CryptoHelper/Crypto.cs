@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-#if NET451 || DOTNET5_4
+#if NET451 || DNX451 || DOTNET5_4
 using Microsoft.AspNet.Cryptography.KeyDerivation;
 #endif
 
@@ -147,7 +147,7 @@ namespace CryptoHelper
         }
 #endif
 
-#if NET451 || DOTNET5_4
+#if NET451 || DNX451 || DOTNET5_4
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 
         private static string HashPasswordInternal(string password)
