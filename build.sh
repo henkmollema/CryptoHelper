@@ -23,15 +23,17 @@ if test ! -e .nuget; then
 fi
 
 if test ! -d packages/KoreBuild; then
-    mono .nuget/nuget.exe install KoreBuild -version 0.2.1-beta7 -Source https://www.myget.org/F/aspnetmaster/api/v2 -o packages -nocache -pre -ExcludeVersion
-    mono .nuget/nuget.exe install Sake -version 0.2.0 -Source https://www.nuget.org/api/v2/ -o packages -ExcludeVersion
+    mono .nuget/nuget.exe install KoreBuild -Source https://www.myget.org/F/aspnetvnext/ -o packages -nocache -pre -ExcludeVersion
+    mono .nuget/nuget.exe install Sake -Source https://www.nuget.org/api/v2/ -o packages -ExcludeVersion
+    #mono .nuget/nuget.exe install KoreBuild -Source https://www.myget.org/F/aspnetmaster/api/v2 -o packages -nocache -pre -ExcludeVersion
+    #mono .nuget/nuget.exe install Sake -version 0.2.0 -Source https://www.nuget.org/api/v2/ -o packages -ExcludeVersion
 fi
 
 if ! type dnvm > /dev/null 2>&1; then
     source packages/KoreBuild/build/dnvm.sh
 fi
 
-DNX_FEED=https://www.nuget.org/api/v2/
+#DNX_FEED=https://www.nuget.org/api/v2/
 if ! type dnx > /dev/null 2>&1; then
     dnvm upgrade -r mono
 fi
