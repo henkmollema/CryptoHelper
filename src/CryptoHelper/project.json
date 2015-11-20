@@ -20,12 +20,18 @@
     "net451": {
       "dependencies": {
         "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc2-*"
+      },
+      "compilationOptions": {
+        "define": [ "COREFX" ]
       }
     },
 
     "dnx451": {
       "dependencies": {
         "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc2-*"
+      },
+      "compilationOptions": {
+        "define": [ "COREFX" ]
       }
     },
 
@@ -35,6 +41,9 @@
         "Microsoft.CSharp": "4.0.1-beta-*",
         "System.Runtime": "4.0.21-beta-*",
         "System.Security.Cryptography.Algorithms": "4.0.0-beta-*"
+      },
+      "compilationOptions": {
+        "define": [ "COREFX" ]
       }
     }
   }

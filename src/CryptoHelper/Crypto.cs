@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-#if NET451 || DNX451 || DOTNET5_4
+#if COREFX
 using Microsoft.AspNet.Cryptography.KeyDerivation;
 #endif
 
@@ -28,7 +28,7 @@ namespace CryptoHelper
          * (All UInt32s are stored big-endian.)
          */
 
-#if NET40 || NET45
+#if !COREFX
         private const int PBKDF2IterCount = 1000;
 #else
         private const int PBKDF2IterCount = 10000;
@@ -102,7 +102,7 @@ namespace CryptoHelper
             return areSame;
         }
 
-#if NET40 || NET45
+#if !COREFX
 
         private static string HashPasswordInternal(string password)
         {
@@ -147,7 +147,7 @@ namespace CryptoHelper
         }
 #endif
 
-#if NET451 || DNX451 || DOTNET5_4
+#if COREFX
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 
         private static string HashPasswordInternal(string password)
