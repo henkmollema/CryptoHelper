@@ -1,12 +1,12 @@
 ﻿{
-  "version": "1.0.0-rc2-build01",
+  "version": "1.0.0-rc2-build02",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
   "description": "Cryptography helper methods for hashing passwords using a PBKDF2 implementation.",
   "projectUrl": "https://github.com/henkmollema/CryptoHelper",
   "licenseUrl": "https://github.com/henkmollema/CryptoHelper/blob/master/LICENSE",
   "tags": [ "c#", "hashing", "salting", "crypto", "helpers", "Rfc2898DeriveBytes" ],
-  "copyright": "Copyright 2015 Henk Mollema",
+  "copyright": "Copyright 2016 Henk Mollema",
   "repository": {
     "type": "git",
     "url": "git://github.com/henkmollema/CryptoHelper"
@@ -38,9 +38,9 @@
     "dotnet5.4": {
       "dependencies": {
         "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc2-*",
-        "Microsoft.CSharp": "4.0.1-beta-*",
-        "System.Runtime": "4.0.21-beta-*",
-        "System.Security.Cryptography.Algorithms": "4.0.0-beta-*"
+        "Microsoft.CSharp": "4.0.1-*",
+        "System.Runtime": "4.0.21-*",
+        "System.Security.Cryptography.Algorithms": "4.0.0-*"
       },
       "compilationOptions": {
         "define": [ "COREFX" ]
