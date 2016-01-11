@@ -22,7 +22,7 @@ namespace CryptoHelper
          * (See also: SDL crypto guidelines v5.1, Part III)
          * Format: { 0x00, salt, subkey }
          *
-         * Version 3: (DNX 4.5.1, 4.6 and Core 5.0)
+         * Version 3: (DNX 4.5.1, 4.6 and .NET Core 5.0)
          * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 10000 iterations.
          * Format: { 0x01, prf (UInt32), iter count (UInt32), salt length (UInt32), salt, subkey }
          * (All UInt32s are stored big-endian.)
@@ -63,8 +63,7 @@ namespace CryptoHelper
         /// <paramref name="hashedPassword" /> must be of the format of HashPassword (salt + Hash(salt+input).
         /// </remarks>
         /// <exception cref="T:System.ArgumentNullException">
-        /// <paramref name="hashedPassword" /> or <paramref name="password" /> is
-        /// null.
+        /// <paramref name="hashedPassword" /> or <paramref name="password" /> is null.
         /// </exception>
         public static bool VerifyHashedPassword(string hashedPassword, string password)
         {
@@ -78,28 +77,6 @@ namespace CryptoHelper
             }
 
             return VerifyHashedPasswordInternal(hashedPassword, password);
-        }
-
-        // Compares two byte arrays for equality. The method is specifically written so that the loop is not optimized.
-        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-        private static bool ByteArraysEqual(byte[] a, byte[] b)
-        {
-            if (ReferenceEquals(a, b))
-            {
-                return true;
-            }
-
-            if (a == null || b == null || a.Length != b.Length)
-            {
-                return false;
-            }
-
-            var areSame = true;
-            for (var i = 0; i < a.Length; i++)
-            {
-                areSame &= (a[i] == b[i]);
-            }
-            return areSame;
         }
 
 #if !COREFX
@@ -152,13 +129,12 @@ namespace CryptoHelper
 
         private static string HashPasswordInternal(string password)
         {
-            var bytes = HashPasswordInternal(password, _rng, KeyDerivationPrf.HMACSHA256, PBKDF2IterCount, SaltSize, PBKDF2SubkeyLength);
+            var bytes = HashPasswordInternal(password, KeyDerivationPrf.HMACSHA256, PBKDF2IterCount, SaltSize, PBKDF2SubkeyLength);
             return Convert.ToBase64String(bytes);
         }
 
         private static byte[] HashPasswordInternal(
             string password,
-            RandomNumberGenerator rng,
             KeyDerivationPrf prf,
             int iterCount,
             int saltSize,
@@ -166,15 +142,27 @@ namespace CryptoHelper
         {
             // Produce a version 3 (see comment above) text hash.
             var salt = new byte[saltSize];
-            rng.GetBytes(salt);
+            _rng.GetBytes(salt);
             var subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
 
             var outputBytes = new byte[13 + salt.Length + subkey.Length];
-            outputBytes[0] = 0x01; // format marker
+            
+            // Write format marker.
+            outputBytes[0] = 0x01;
+            
+            // Write hashing algorithm version.
             WriteNetworkByteOrder(outputBytes, 1, (uint)prf);
+            
+            // Write iteration count of the algorithm.
             WriteNetworkByteOrder(outputBytes, 5, (uint)iterCount);
+            
+            // Write size of the salt.
             WriteNetworkByteOrder(outputBytes, 9, (uint)saltSize);
+            
+            // Write the salt.
             Buffer.BlockCopy(salt, 0, outputBytes, 13, salt.Length);
+            
+            // Write the subkey.
             Buffer.BlockCopy(subkey, 0, outputBytes, 13 + saltSize, subkey.Length);
             return outputBytes;
         }
@@ -190,29 +178,44 @@ namespace CryptoHelper
 
             try
             {
-                // Read header information
+                // Verify hashing format.
+                if (decodedHashedPassword[0] != 0x01)
+                {
+                    // Unknown format header.
+                    return false;
+                }
+                
+                // Read hashing algorithm version.
                 var prf = (KeyDerivationPrf)ReadNetworkByteOrder(decodedHashedPassword, 1);
+                
+                // Read iteration count of the algorithm.
                 var iterCount = (int)ReadNetworkByteOrder(decodedHashedPassword, 5);
+                
+                // Read size of the salt.
                 var saltLength = (int)ReadNetworkByteOrder(decodedHashedPassword, 9);
 
-                // Read the salt: must be >= 128 bits
+                // Verify the salt size: >= 128 bits.
                 if (saltLength < 128 / 8)
                 {
                     return false;
                 }
+                
+                // Read the salt.
                 var salt = new byte[saltLength];
                 Buffer.BlockCopy(decodedHashedPassword, 13, salt, 0, salt.Length);
 
-                // Read the subkey (the rest of the payload): must be >= 128 bits
+                // Verify the subkey length >= 128 bits.
                 var subkeyLength = decodedHashedPassword.Length - 13 - salt.Length;
                 if (subkeyLength < 128 / 8)
                 {
                     return false;
                 }
+                
+                // Read the subkey.
                 var expectedSubkey = new byte[subkeyLength];
                 Buffer.BlockCopy(decodedHashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
 
-                // Hash the incoming password and verify it
+                // Hash the given password and verify it against the expected subkey.
                 var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
                 return ByteArraysEqual(actualSubkey, expectedSubkey);
             }
@@ -241,5 +244,28 @@ namespace CryptoHelper
             buffer[offset + 3] = (byte)(value >> 0);
         }
 #endif
+
+        // Compares two byte arrays for equality. 
+        // The method is specifically written so that the loop is not optimized.
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private static bool ByteArraysEqual(byte[] a, byte[] b)
+        {
+            if (ReferenceEquals(a, b))
+            {
+                return true;
+            }
+
+            if (a == null || b == null || a.Length != b.Length)
+            {
+                return false;
+            }
+
+            var areSame = true;
+            for (var i = 0; i < a.Length; i++)
+            {
+                areSame &= (a[i] == b[i]);
+            }
+            return areSame;
+        }
     }
 }
