@@ -4,7 +4,7 @@ namespace CryptoHelper.Tests
 {
     public class CryptoHelperTests
     {
-        private const string Password = "VerySecuryPassword";
+        private const string Password = "VerySecurePassword";
 
         [Fact]
         public void HashPassword_Returns_HashedPassword()
