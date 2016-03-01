@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-rc2-build02",
+  "version": "1.0.0-rc2-build03",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
   "description": "Cryptography helper methods for hashing passwords using a PBKDF2 implementation.",
@@ -19,7 +19,7 @@
 
     "net451": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*"
+        "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0-*"
       },
       "compilationOptions": {
         "define": [ "COREFX" ]
@@ -28,15 +28,11 @@
 
     "dotnet5.4": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*",
-        "Microsoft.CSharp": "4.0.1-*",
-        "System.Runtime": "4.0.21-*",
-        "System.Security.Cryptography.Algorithms": "4.0.0-*"
+        "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0-*"
       },
       "compilationOptions": {
         "define": [ "COREFX" ]
-      },
-      "imports": "portable-net451+win8"
+      }
     }
   }
 }
