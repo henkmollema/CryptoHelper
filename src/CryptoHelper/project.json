@@ -19,16 +19,7 @@
 
     "net451": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc2-*"
-      },
-      "compilationOptions": {
-        "define": [ "COREFX" ]
-      }
-    },
-
-    "dnx451": {
-      "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc2-*"
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*"
       },
       "compilationOptions": {
         "define": [ "COREFX" ]
@@ -37,14 +28,15 @@
 
     "dotnet5.4": {
       "dependencies": {
-        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc2-*",
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-*",
         "Microsoft.CSharp": "4.0.1-*",
         "System.Runtime": "4.0.21-*",
         "System.Security.Cryptography.Algorithms": "4.0.0-*"
       },
       "compilationOptions": {
         "define": [ "COREFX" ]
-      }
+      },
+      "imports": "portable-net451+win8"
     }
   }
 }
