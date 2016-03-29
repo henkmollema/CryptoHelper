@@ -1,15 +1,19 @@
 ﻿{
-  "version": "1.0.0-rc2-build03",
+  "version": "1.0.0-rc2-build04",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
-  "description": "Cryptography helper methods for hashing passwords using a PBKDF2 implementation.",
+  "description": "Cryptography helper methods for hashing passwords on .NET Core using a PBKDF2 implementation.",
   "projectUrl": "https://github.com/henkmollema/CryptoHelper",
   "licenseUrl": "https://github.com/henkmollema/CryptoHelper/blob/master/LICENSE",
-  "tags": [ "c#", "hashing", "salting", "crypto", "helpers", "Rfc2898DeriveBytes" ],
+  "tags": [ "c#", "hashing", "salting", "crypto", "core", "PBKDF2", "Rfc2898DeriveBytes" ],
   "copyright": "Copyright 2016 Henk Mollema",
   "repository": {
     "type": "git",
     "url": "git://github.com/henkmollema/CryptoHelper"
+  },
+  
+  "compilationOptions": {
+      "xmlDoc": true
   },
 
   "frameworks": {
@@ -26,10 +30,13 @@
       }
     },
 
-    "dotnet5.4": {
+    "netstandard1.3": {
       "dependencies": {
         "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0-*"
       },
+      "imports": [
+        "dotnet5.4"
+      ],
       "compilationOptions": {
         "define": [ "COREFX" ]
       }
