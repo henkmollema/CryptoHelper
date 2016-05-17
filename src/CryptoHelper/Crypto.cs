@@ -22,7 +22,7 @@ namespace CryptoHelper
          * (See also: SDL crypto guidelines v5.1, Part III)
          * Format: { 0x00, salt, subkey }
          *
-         * Version 3: (DNX 4.5.1, 4.6 and .NET Core 5.0)
+         * Version 3: (.NET Core)
          * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 10000 iterations.
          * Format: { 0x01, prf (UInt32), iter count (UInt32), salt length (UInt32), salt, subkey }
          * (All UInt32s are stored big-endian.)
