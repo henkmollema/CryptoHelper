@@ -1,19 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C03C9E2A-0572-45A4-9D08-2B4FB8DB008F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AED8A2C4-4D9F-42D7-A0D0-0832128A0072}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.xproj", "{EBEDFD6C-2272-48EF-B9D0-83615BD171D8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AE91DAF8-4A94-4A25-BA27-87F603FBCD4B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CryptoHelper.Tests", "test\CryptoHelper.Tests\CryptoHelper.Tests.xproj", "{B34E927D-326A-4D30-A0F5-78EFDE5E3DC6}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.xproj", "{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D7466811-2D0F-4015-9480-E97D32BD1EEA}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CryptoHelper.Tests", "test\CryptoHelper.Tests\CryptoHelper.Tests.xproj", "{F4D8F18C-6809-4CE4-BBBA-1801B2710987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,20 +23,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EBEDFD6C-2272-48EF-B9D0-83615BD171D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBEDFD6C-2272-48EF-B9D0-83615BD171D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBEDFD6C-2272-48EF-B9D0-83615BD171D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBEDFD6C-2272-48EF-B9D0-83615BD171D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B34E927D-326A-4D30-A0F5-78EFDE5E3DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B34E927D-326A-4D30-A0F5-78EFDE5E3DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B34E927D-326A-4D30-A0F5-78EFDE5E3DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B34E927D-326A-4D30-A0F5-78EFDE5E3DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EBEDFD6C-2272-48EF-B9D0-83615BD171D8} = {C03C9E2A-0572-45A4-9D08-2B4FB8DB008F}
-		{B34E927D-326A-4D30-A0F5-78EFDE5E3DC6} = {C03C9E2A-0572-45A4-9D08-2B4FB8DB008F}
+		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862} = {AE91DAF8-4A94-4A25-BA27-87F603FBCD4B}
+		{F4D8F18C-6809-4CE4-BBBA-1801B2710987} = {D7466811-2D0F-4015-9480-E97D32BD1EEA}
 	EndGlobalSection
 EndGlobal
