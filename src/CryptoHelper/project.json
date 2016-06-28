@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0",
+  "version": "2.0.0",
   "authors": [ "Henk Mollema" ],
   "copyright": "Copyright 2016 Henk Mollema",
   "description": "Standalone password hasher for ASP.NET Core using a PBKDF2 implementation.",
