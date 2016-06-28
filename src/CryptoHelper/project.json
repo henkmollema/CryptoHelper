@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.0.0-rc2-*",
+  "version": "1.0.0",
   "authors": [ "Henk Mollema" ],
   "copyright": "Copyright 2016 Henk Mollema",
-  "description": "Cryptography helper methods for hashing passwords on .NET Core using a PBKDF2 implementation.",
+  "description": "Standalone password hasher for ASP.NET Core using a PBKDF2 implementation.",
   "packOptions": {
     "repository": {
       "type": "git",
@@ -18,31 +18,12 @@
     "xmlDoc": true
   },
 
+  "dependencies": {
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0"    
+  },
+
   "frameworks": {
-    "net40": { },
-
-    "net45": { },
-
-    "net451": {
-      "dependencies": {
-        "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0-rc2-final"
-      },
-      "buildOptions": {
-        "define": [ "COREFX" ]
-      }
-    },
-
-    "netstandard1.3": {
-      "dependencies": {
-        "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0-rc2-final"
-      },
-      "imports": [
-        "dotnet5.4",
-        "portable-net451+win8"
-      ],
-      "buildOptions": {
-        "define": [ "COREFX" ]
-      }
-    }
+    "net451": { },
+    "netstandard1.3": { }
   }
 }

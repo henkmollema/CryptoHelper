@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
-
-#if COREFX
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-#endif
 
 namespace CryptoHelper
 {
@@ -17,22 +14,13 @@ namespace CryptoHelper
          * HASHED PASSWORD FORMATS
          * =======================
          *
-         * Version 0: (.NET 4 and 4.5)
-         * PBKDF2 with HMAC-SHA1, 128-bit salt, 256-bit subkey, 1000 iterations.
-         * (See also: SDL crypto guidelines v5.1, Part III)
-         * Format: { 0x00, salt, subkey }
-         *
-         * Version 3: (.NET Core)
+         * Version 3:
          * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 10000 iterations.
          * Format: { 0x01, prf (UInt32), iter count (UInt32), salt length (UInt32), salt, subkey }
          * (All UInt32s are stored big-endian.)
          */
 
-#if !COREFX
-        private const int PBKDF2IterCount = 1000;
-#else
         private const int PBKDF2IterCount = 10000;
-#endif
         private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits
         private const int SaltSize = 128 / 8; // 128 bits
 
@@ -79,52 +67,6 @@ namespace CryptoHelper
             return VerifyHashedPasswordInternal(hashedPassword, password);
         }
 
-#if !COREFX
-
-        private static string HashPasswordInternal(string password)
-        {
-            // Produce a version 0 (see comment above) password hash.
-            byte[] salt;
-            byte[] subkey;
-            using (var deriveBytes = new Rfc2898DeriveBytes(password, SaltSize, PBKDF2IterCount))
-            {
-                salt = deriveBytes.Salt;
-                subkey = deriveBytes.GetBytes(PBKDF2SubkeyLength);
-            }
-
-            var outputBytes = new byte[1 + SaltSize + PBKDF2SubkeyLength];
-            Buffer.BlockCopy(salt, 0, outputBytes, 1, SaltSize);
-            Buffer.BlockCopy(subkey, 0, outputBytes, 1 + SaltSize, PBKDF2SubkeyLength);
-            return Convert.ToBase64String(outputBytes);
-        }
-
-        private static bool VerifyHashedPasswordInternal(string hashedPassword, string password)
-        {
-            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
-
-            // Verify a version 0 (see comment above) password hash.
-            if (decodedHashedPassword.Length != (1 + SaltSize + PBKDF2SubkeyLength) || decodedHashedPassword[0] != 0x00)
-            {
-                // Wrong length or version header.
-                return false;
-            }
-
-            var salt = new byte[SaltSize];
-            Buffer.BlockCopy(decodedHashedPassword, 1, salt, 0, SaltSize);
-
-            var storedSubkey = new byte[PBKDF2SubkeyLength];
-            Buffer.BlockCopy(decodedHashedPassword, 1 + SaltSize, storedSubkey, 0, PBKDF2SubkeyLength);
-
-            byte[] generatedSubkey;
-            using (var deriveBytes = new Rfc2898DeriveBytes(password, salt, PBKDF2IterCount))
-            {
-                generatedSubkey = deriveBytes.GetBytes(PBKDF2SubkeyLength);
-            }
-            return ByteArraysEqual(storedSubkey, generatedSubkey);
-        }
-#endif
-
-#if COREFX
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 
         private static string HashPasswordInternal(string password)
@@ -243,7 +185,6 @@ namespace CryptoHelper
             buffer[offset + 2] = (byte)(value >> 8);
             buffer[offset + 3] = (byte)(value >> 0);
         }
-#endif
 
         // Compares two byte arrays for equality. 
         // The method is specifically written so that the loop is not optimized.
