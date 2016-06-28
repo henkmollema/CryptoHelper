@@ -1,5 +1,5 @@
 # CryptoHelper
-:key: Cryptography helper methods for hashing passwords on .NET Core using a PBKDF2 implementation. 
+:key: Standalone password hasher for ASP.NET Core using a PBKDF2 implementation. 
 
 <hr>
 
@@ -8,8 +8,7 @@
 | [![Build status](https://ci.appveyor.com/api/projects/status/hai0kndijmx6xb9d?svg=true)](https://ci.appveyor.com/project/henkmollema/cryptohelper) | [![Build Status](https://travis-ci.org/henkmollema/CryptoHelper.svg)](https://travis-ci.org/henkmollema/CryptoHelper) | [![Build Status](https://travis-ci.org/henkmollema/CryptoHelper.svg)](https://travis-ci.org/henkmollema/CryptoHelper) |
 
 --
-
-This utility ports the password hashing functionality from the  [`System.Web.Helpers.Crypto`](http://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Web.Helpers/Crypto.cs) class to .NET Core, without a dependency on ASP.NET Identity. On .NET Core the new ASP.NET Core [Data Protection](https://github.com/aspnet/DataProtection) stack is used. Where as classic .NET 4.0 and 4.5 applications  will use `Rfc2898DeriveBytes` 
+This utility provides a standalone password hasher for ASP.NET Core without a dependency on ASP.NET Identity. The passwords are hashed using the new [Data Protection](https://github.com/aspnet/DataProtection) stack. 
 
 <hr>
 
@@ -19,7 +18,7 @@ This utility ports the password hashing functionality from the  [`System.Web.Hel
 Add this to your `project.json`:
 ```json
 "dependencies": {
-    "CryptoHelper": "1.0.0-rc2-final"
+    "CryptoHelper": "2.0.0"
 }
 ```
 
