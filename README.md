@@ -7,35 +7,21 @@
 | --- | --- | --- |
 | [![Build status](https://ci.appveyor.com/api/projects/status/hai0kndijmx6xb9d?svg=true)](https://ci.appveyor.com/project/henkmollema/cryptohelper) | [![Build Status](https://travis-ci.org/henkmollema/CryptoHelper.svg)](https://travis-ci.org/henkmollema/CryptoHelper) | [![Build Status](https://travis-ci.org/henkmollema/CryptoHelper.svg)](https://travis-ci.org/henkmollema/CryptoHelper) |
 
---
+<hr>
+
 This utility provides a standalone password hasher for ASP.NET Core without a dependency on ASP.NET Identity. The passwords are hashed using the new [Data Protection](https://github.com/aspnet/DataProtection) stack.
 
 <hr>
 
-## Installation
+## Download
 
-#### Add the [CryptoHelper NuGet package](https://www.nuget.org/packages/CryptoHelper) to your project
-Add this to your `project.json`:
-```json
-"dependencies": {
-    "CryptoHelper": "2.1.1"
-}
-```
-
---
-
-#### Download using the NuGet Package Manager Console
-```
-Install-Package CryptoHelper -Pre
-```
+CryptoHelper is available on [NuGet](https://www.nuget.org/packages/CryptoHelper).
 
 <hr>
 
 ## Usage
 ```csharp
 using CryptoHelper;
-
-// ...
 
 // Hash a password
 public string HashPassword(string password)
