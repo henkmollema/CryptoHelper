@@ -1,21 +1,20 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AED8A2C4-4D9F-42D7-A0D0-0832128A0072}"
 	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
 		NuGet.Config = NuGet.Config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AE91DAF8-4A94-4A25-BA27-87F603FBCD4B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.xproj", "{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.csproj", "{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D7466811-2D0F-4015-9480-E97D32BD1EEA}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CryptoHelper.Tests", "test\CryptoHelper.Tests\CryptoHelper.Tests.xproj", "{F4D8F18C-6809-4CE4-BBBA-1801B2710987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoHelper.Tests", "test\CryptoHelper.Tests\CryptoHelper.Tests.csproj", "{F4D8F18C-6809-4CE4-BBBA-1801B2710987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
