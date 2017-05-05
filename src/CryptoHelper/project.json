@@ -1,7 +1,7 @@
 ﻿{
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [ "Henk Mollema" ],
-  "copyright": "Copyright 2016 Henk Mollema",
+  "copyright": "Copyright 2017 Henk Mollema",
   "description": "Standalone password hasher for ASP.NET Core using a PBKDF2 implementation.",
   "packOptions": {
     "repository": {
@@ -19,7 +19,7 @@
   },
 
   "dependencies": {
-    "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0"    
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.2"
   },
 
   "frameworks": {
