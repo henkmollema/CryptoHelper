@@ -30,7 +30,7 @@ namespace CryptoHelper
         /// </summary>
         /// <param name="password">The password to generate a hash value for.</param>
         /// <returns>The hash value for <paramref name="password" /> as a base-64-encoded string.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="password" /> is null.</exception>
+        /// <exception cref="System.ArgumentNullException"><paramref name="password" /> is null.</exception>
         public static string HashPassword(string password)
         {
             if (password == null)
@@ -50,7 +50,7 @@ namespace CryptoHelper
         /// <remarks>
         /// <paramref name="hashedPassword" /> must be of the format of HashPassword (salt + Hash(salt+input).
         /// </remarks>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="System.ArgumentNullException">
         /// <paramref name="hashedPassword" /> or <paramref name="password" /> is null.
         /// </exception>
         public static bool VerifyHashedPassword(string hashedPassword, string password)
@@ -88,22 +88,22 @@ namespace CryptoHelper
             var subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
 
             var outputBytes = new byte[13 + salt.Length + subkey.Length];
-            
+
             // Write format marker.
             outputBytes[0] = 0x01;
-            
+
             // Write hashing algorithm version.
             WriteNetworkByteOrder(outputBytes, 1, (uint)prf);
-            
+
             // Write iteration count of the algorithm.
             WriteNetworkByteOrder(outputBytes, 5, (uint)iterCount);
-            
+
             // Write size of the salt.
             WriteNetworkByteOrder(outputBytes, 9, (uint)saltSize);
-            
+
             // Write the salt.
             Buffer.BlockCopy(salt, 0, outputBytes, 13, salt.Length);
-            
+
             // Write the subkey.
             Buffer.BlockCopy(subkey, 0, outputBytes, 13 + saltSize, subkey.Length);
             return outputBytes;
@@ -126,13 +126,13 @@ namespace CryptoHelper
                     // Unknown format header.
                     return false;
                 }
-                
+
                 // Read hashing algorithm version.
                 var prf = (KeyDerivationPrf)ReadNetworkByteOrder(decodedHashedPassword, 1);
-                
+
                 // Read iteration count of the algorithm.
                 var iterCount = (int)ReadNetworkByteOrder(decodedHashedPassword, 5);
-                
+
                 // Read size of the salt.
                 var saltLength = (int)ReadNetworkByteOrder(decodedHashedPassword, 9);
 
@@ -141,7 +141,7 @@ namespace CryptoHelper
                 {
                     return false;
                 }
-                
+
                 // Read the salt.
                 var salt = new byte[saltLength];
                 Buffer.BlockCopy(decodedHashedPassword, 13, salt, 0, salt.Length);
@@ -152,7 +152,7 @@ namespace CryptoHelper
                 {
                     return false;
                 }
-                
+
                 // Read the subkey.
                 var expectedSubkey = new byte[subkeyLength];
                 Buffer.BlockCopy(decodedHashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
@@ -186,7 +186,7 @@ namespace CryptoHelper
             buffer[offset + 3] = (byte)(value >> 0);
         }
 
-        // Compares two byte arrays for equality. 
+        // Compares two byte arrays for equality.
         // The method is specifically written so that the loop is not optimized.
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         private static bool ByteArraysEqual(byte[] a, byte[] b)
