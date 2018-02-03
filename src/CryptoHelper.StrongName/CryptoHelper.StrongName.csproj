@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Version>3.0.0.1</Version>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>CryptoHelper.StrongName</PackageId>
     <AssemblyOriginatorKeyFile>../../CryptoHelper.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
