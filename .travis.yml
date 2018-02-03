@@ -9,8 +9,6 @@ env:
 os:
   - linux
   - osx
-osx_image: xcode8.2
-before_script:
-  - chmod +x ./build.sh
+osx_image: xcode8.3
 script:
   - ./build.sh
