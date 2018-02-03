@@ -3,7 +3,6 @@
     <Description>Standalone password hasher for ASP.NET Core using a PBKDF2 implementation.</Description>
     <Copyright>Copyright 2017 Henk Mollema</Copyright>
     <VersionPrefix>3.0.0</VersionPrefix>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Authors>Henk Mollema</Authors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>hashing;crypto;core;PBKDF2;Rfc2898DeriveBytes</PackageTags>
