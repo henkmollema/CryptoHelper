@@ -1,60 +1,38 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AED8A2C4-4D9F-42D7-A0D0-0832128A0072}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet.Config = NuGet.Config
-		README.md = README.md
-	EndProjectSection
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DD55BCD1-C3C3-4192-B4D4-2E6A19902525}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AE91DAF8-4A94-4A25-BA27-87F603FBCD4B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.csproj", "{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D7466811-2D0F-4015-9480-E97D32BD1EEA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoHelper.Tests", "test\CryptoHelper.Tests\CryptoHelper.Tests.csproj", "{F4D8F18C-6809-4CE4-BBBA-1801B2710987}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoHelper.StrongName", "src\CryptoHelper.StrongName\CryptoHelper.StrongName.csproj", "{29D3296B-5C26-4A51-AD85-28D34C3F8D96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.csproj", "{B636EF42-1BAB-4033-89BC-0DD9A695319E}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4D8F18C-6809-4CE4-BBBA-1801B2710987}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Debug|x64.ActiveCfg = Debug|x64
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Debug|x64.Build.0 = Debug|x64
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Debug|x86.ActiveCfg = Debug|x86
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Debug|x86.Build.0 = Debug|x86
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Release|x64.ActiveCfg = Release|x64
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Release|x64.Build.0 = Release|x64
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Release|x86.ActiveCfg = Release|x86
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{05BFEEDB-1E36-4A70-BADA-07D68CEF8862} = {AE91DAF8-4A94-4A25-BA27-87F603FBCD4B}
-		{F4D8F18C-6809-4CE4-BBBA-1801B2710987} = {D7466811-2D0F-4015-9480-E97D32BD1EEA}
-		{29D3296B-5C26-4A51-AD85-28D34C3F8D96} = {AE91DAF8-4A94-4A25-BA27-87F603FBCD4B}
-	EndGlobalSection
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Debug|x64 = Debug|x64
+        Debug|x86 = Debug|x86
+        Release|Any CPU = Release|Any CPU
+        Release|x64 = Release|x64
+        Release|x86 = Release|x86
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x64.ActiveCfg = Debug|x64
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x64.Build.0 = Debug|x64
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x86.ActiveCfg = Debug|x86
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x86.Build.0 = Debug|x86
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|Any CPU.Build.0 = Release|Any CPU
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x64.ActiveCfg = Release|x64
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x64.Build.0 = Release|x64
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x86.ActiveCfg = Release|x86
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x86.Build.0 = Release|x86
+    EndGlobalSection
+    GlobalSection(NestedProjects) = preSolution
+        {B636EF42-1BAB-4033-89BC-0DD9A695319E} = {DD55BCD1-C3C3-4192-B4D4-2E6A19902525}
+    EndGlobalSection
 EndGlobal
