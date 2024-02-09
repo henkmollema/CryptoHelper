@@ -15,7 +15,6 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>../../CryptoHelper.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
