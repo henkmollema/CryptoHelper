@@ -7,11 +7,15 @@
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <Authors>Henk Mollema</Authors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageTags>hashing;crypto;core;PBKDF2;Rfc2898DeriveBytes</PackageTags>
+    <PackageTags>hashing;passwordhasher;crypto;core;PBKDF2;Rfc2898DeriveBytes</PackageTags>
     <PackageProjectUrl>https://github.com/henkmollema/CryptoHelper</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/henkmollema/CryptoHelper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/henkmollema/CryptoHelper</RepositoryUrl>
+    <RepositoryUrl>https://github.com/henkmollema/CryptoHelper</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>../../CryptoHelper.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
