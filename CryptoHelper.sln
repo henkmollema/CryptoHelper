@@ -1,38 +1,38 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DD55BCD1-C3C3-4192-B4D4-2E6A19902525}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.csproj", "{B636EF42-1BAB-4033-89BC-0DD9A695319E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoHelper", "src\CryptoHelper\CryptoHelper.csproj", "{B636EF42-1BAB-4033-89BC-0DD9A695319E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{61A274A4-9A61-4C9F-AF4F-C4D7BAB76C84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoHelper.Tests", "test\CryptoHelper.Tests\CryptoHelper.Tests.csproj", "{14697791-6DB8-4206-B68B-9E0ADE024554}"
 EndProject
 Global
-    GlobalSection(SolutionConfigurationPlatforms) = preSolution
-        Debug|Any CPU = Debug|Any CPU
-        Debug|x64 = Debug|x64
-        Debug|x86 = Debug|x86
-        Release|Any CPU = Release|Any CPU
-        Release|x64 = Release|x64
-        Release|x86 = Release|x86
-    EndGlobalSection
-    GlobalSection(SolutionProperties) = preSolution
-        HideSolutionNode = FALSE
-    EndGlobalSection
-    GlobalSection(ProjectConfigurationPlatforms) = postSolution
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x64.ActiveCfg = Debug|x64
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x64.Build.0 = Debug|x64
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x86.ActiveCfg = Debug|x86
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|x86.Build.0 = Debug|x86
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|Any CPU.Build.0 = Release|Any CPU
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x64.ActiveCfg = Release|x64
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x64.Build.0 = Release|x64
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x86.ActiveCfg = Release|x86
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|x86.Build.0 = Release|x86
-    EndGlobalSection
-    GlobalSection(NestedProjects) = preSolution
-        {B636EF42-1BAB-4033-89BC-0DD9A695319E} = {DD55BCD1-C3C3-4192-B4D4-2E6A19902525}
-    EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B636EF42-1BAB-4033-89BC-0DD9A695319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B636EF42-1BAB-4033-89BC-0DD9A695319E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14697791-6DB8-4206-B68B-9E0ADE024554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14697791-6DB8-4206-B68B-9E0ADE024554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14697791-6DB8-4206-B68B-9E0ADE024554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14697791-6DB8-4206-B68B-9E0ADE024554}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B636EF42-1BAB-4033-89BC-0DD9A695319E} = {DD55BCD1-C3C3-4192-B4D4-2E6A19902525}
+		{14697791-6DB8-4206-B68B-9E0ADE024554} = {61A274A4-9A61-4C9F-AF4F-C4D7BAB76C84}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF33E925-8836-4498-8732-426E2B67CF84}
+	EndGlobalSection
 EndGlobal

@@ -15,12 +15,12 @@ namespace CryptoHelper
          * =======================
          *
          * Version 3:
-         * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 10000 iterations.
+     * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 600.000 iterations.
          * Format: { 0x01, prf (UInt32), iter count (UInt32), salt length (UInt32), salt, subkey }
          * (All UInt32s are stored big-endian.)
          */
 
-        private const int PBKDF2IterCount = 10000;
+        private const int PBKDF2IterCount = 600_000;
         private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits
         private const int SaltSize = 128 / 8; // 128 bits
 
