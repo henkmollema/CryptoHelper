@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace CryptoHelper.Tests;
 
@@ -37,5 +38,66 @@ public class CryptoHelperTests
         var hashed = Crypto.HashPassword(Password);
         var result = Crypto.VerifyHashedPassword(hashed, "WrongPassword");
         Assert.False(result);
+    }
+
+    [Fact]
+    public void HashPassword_EmptyPassword_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => Crypto.HashPassword(""));
+    }
+
+    [Fact]
+    public void VerifyHashedPassword_WeakPrf_ReturnsFalse()
+    {
+        // Craft a hash with HMACSHA1 (prf = 0) — should be rejected.
+        var hash = CreateTamperedHash(prf: 0);
+        Assert.False(Crypto.VerifyHashedPassword(hash, Password));
+    }
+
+    [Fact]
+    public void VerifyHashedPassword_LowIterationCount_ReturnsFalse()
+    {
+        // Craft a hash with only 1 iteration — should be rejected.
+        var hash = CreateTamperedHash(iterCount: 1);
+        Assert.False(Crypto.VerifyHashedPassword(hash, Password));
+    }
+
+    [Fact]
+    public void VerifyHashedPassword_HugeSaltLength_ReturnsFalse()
+    {
+        // Craft a hash with an absurdly large salt length.
+        var hash = CreateTamperedHash(saltLength: 1_000_000);
+        Assert.False(Crypto.VerifyHashedPassword(hash, Password));
+    }
+
+    [Fact]
+    public void VerifyHashedPassword_MalformedPayload_ReturnsFalse()
+    {
+        Assert.False(Crypto.VerifyHashedPassword(Convert.ToBase64String(new byte[] { 0x01 }), Password));
+    }
+
+    /// <summary>
+    /// Creates a base64 hash payload with tampered header fields for testing validation.
+    /// </summary>
+    private static string CreateTamperedHash(uint prf = 1, uint iterCount = 600_000, uint saltLength = 16)
+    {
+        var salt = new byte[16];
+        var subkey = new byte[32];
+        var output = new byte[13 + salt.Length + subkey.Length];
+        output[0] = 0x01;
+        WriteBE(output, 1, prf);
+        WriteBE(output, 5, iterCount);
+        WriteBE(output, 9, saltLength);
+        Buffer.BlockCopy(salt, 0, output, 13, salt.Length);
+        Buffer.BlockCopy(subkey, 0, output, 13 + salt.Length, subkey.Length);
+        return Convert.ToBase64String(output);
+    }
+
+    private static void WriteBE(byte[] buf, int offset, uint value)
+    {
+        buf[offset + 0] = (byte)(value >> 24);
+        buf[offset + 1] = (byte)(value >> 16);
+        buf[offset + 2] = (byte)(value >> 8);
+        buf[offset + 3] = (byte)(value >> 0);
     }
 }

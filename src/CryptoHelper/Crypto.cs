@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
@@ -23,6 +22,8 @@ public static class Crypto
     private const int PBKDF2IterCount = 600_000;
     private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits
     private const int SaltSize = 128 / 8; // 128 bits
+    private const int MinimumIterCount = 10_000;
+    private const int MaxSaltLength = 512 / 8; // 512 bits
 
 
     /// <summary>
@@ -30,12 +31,18 @@ public static class Crypto
     /// </summary>
     /// <param name="password">The password to generate a hash value for.</param>
     /// <returns>The hash value for <paramref name="password" /> as a base-64-encoded string.</returns>
-    /// <exception cref="System.ArgumentNullException"><paramref name="password" /> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="password" /> is null.</exception>
+    /// <exception cref="ArgumentException"><paramref name="password" /> is empty.</exception>
     public static string HashPassword(string password)
     {
         if (password == null)
         {
             throw new ArgumentNullException(nameof(password));
+        }
+
+        if (password.Length == 0)
+        {
+            throw new ArgumentException("Password must not be empty.", nameof(password));
         }
 
         return HashPasswordInternal(password);
@@ -130,14 +137,42 @@ public static class Crypto
             // Read hashing algorithm version.
             var prf = (KeyDerivationPrf)ReadNetworkByteOrder(decodedHashedPassword, 1);
 
+            // Reject weak PRF algorithms — only HMACSHA256 and HMACSHA512 are accepted.
+            if (prf != KeyDerivationPrf.HMACSHA256 && prf != KeyDerivationPrf.HMACSHA512)
+            {
+                return false;
+            }
+
             // Read iteration count of the algorithm.
-            var iterCount = (int)ReadNetworkByteOrder(decodedHashedPassword, 5);
+            var iterCountRaw = ReadNetworkByteOrder(decodedHashedPassword, 5);
+            if (iterCountRaw > int.MaxValue)
+            {
+                return false;
+            }
+            var iterCount = (int)iterCountRaw;
+
+            // Reject iteration counts below the security minimum.
+            if (iterCount < MinimumIterCount)
+            {
+                return false;
+            }
 
             // Read size of the salt.
-            var saltLength = (int)ReadNetworkByteOrder(decodedHashedPassword, 9);
+            var saltLengthRaw = ReadNetworkByteOrder(decodedHashedPassword, 9);
+            if (saltLengthRaw > int.MaxValue)
+            {
+                return false;
+            }
+            var saltLength = (int)saltLengthRaw;
 
-            // Verify the salt size: >= 128 bits.
-            if (saltLength < 128 / 8)
+            // Verify the salt size: >= 128 bits and bounded to prevent huge allocations.
+            if (saltLength < 128 / 8 || saltLength > MaxSaltLength)
+            {
+                return false;
+            }
+
+            // Verify the payload is large enough before allocating.
+            if (decodedHashedPassword.Length < 13 + saltLength)
             {
                 return false;
             }
@@ -161,21 +196,26 @@ public static class Crypto
             var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
             return ByteArraysEqual(actualSubkey, expectedSubkey);
         }
-        catch
+        catch (FormatException)
         {
-            // This should never occur except in the case of a malformed payload, where
-            // we might go off the end of the array. Regardless, a malformed payload
-            // implies verification failed.
+            return false;
+        }
+        catch (ArgumentException)
+        {
+            return false;
+        }
+        catch (IndexOutOfRangeException)
+        {
             return false;
         }
     }
 
     private static uint ReadNetworkByteOrder(byte[] buffer, int offset)
     {
-        return ((uint)(buffer[offset + 0]) << 24)
-            | ((uint)(buffer[offset + 1]) << 16)
-            | ((uint)(buffer[offset + 2]) << 8)
-            | ((uint)(buffer[offset + 3]));
+        return ((uint)buffer[offset + 0] << 24)
+            | ((uint)buffer[offset + 1] << 16)
+            | ((uint)buffer[offset + 2] << 8)
+            | ((uint)buffer[offset + 3]);
     }
 
     private static void WriteNetworkByteOrder(byte[] buffer, int offset, uint value)
@@ -186,26 +226,12 @@ public static class Crypto
         buffer[offset + 3] = (byte)(value >> 0);
     }
 
-    // Compares two byte arrays for equality.
-    // The method is specifically written so that the loop is not optimized.
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     private static bool ByteArraysEqual(byte[] a, byte[] b)
     {
-        if (ReferenceEquals(a, b))
-        {
-            return true;
-        }
-
         if (a == null || b == null || a.Length != b.Length)
         {
             return false;
         }
-
-        var areSame = true;
-        for (var i = 0; i < a.Length; i++)
-        {
-            areSame &= (a[i] == b[i]);
-        }
-        return areSame;
+        return CryptographicOperations.FixedTimeEquals(a, b);
     }
 }
