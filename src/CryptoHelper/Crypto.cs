@@ -13,7 +13,7 @@ public static class Crypto
      * HASHED PASSWORD FORMATS
      * =======================
      *
-     * Version 3:
+     * Version 1:
      * PBKDF2 with HMAC-SHA256, 128-bit salt, 256-bit subkey, 600.000 iterations.
      * Format: { 0x01, prf (UInt32), iter count (UInt32), salt length (UInt32), salt, subkey }
      * (All UInt32s are stored big-endian.)
@@ -24,7 +24,7 @@ public static class Crypto
     private const int SaltSize = 128 / 8; // 128 bits
     private const int MinimumIterCount = 10_000;
     private const int MaxSaltLength = 512 / 8; // 512 bits
-
+    private static readonly RandomNumberGenerator RNG = RandomNumberGenerator.Create();
 
     /// <summary>
     /// Returns a hashed representation of the specified <paramref name="password"/>.
@@ -74,8 +74,6 @@ public static class Crypto
         return VerifyHashedPasswordInternal(hashedPassword, password);
     }
 
-    private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
-
     private static string HashPasswordInternal(string password)
     {
         var bytes = HashPasswordInternal(password, KeyDerivationPrf.HMACSHA256, PBKDF2IterCount, SaltSize, PBKDF2SubkeyLength);
@@ -89,9 +87,9 @@ public static class Crypto
         int saltSize,
         int numBytesRequested)
     {
-        // Produce a version 3 (see comment above) text hash.
+        // Produce a version 1 (see comment above) text hash.
         var salt = new byte[saltSize];
-        _rng.GetBytes(salt);
+        RNG.GetBytes(salt);
         var subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
 
         var outputBytes = new byte[13 + salt.Length + subkey.Length];
@@ -193,7 +191,7 @@ public static class Crypto
 
             // Hash the given password and verify it against the expected subkey.
             var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
-            return ByteArraysEqual(actualSubkey, expectedSubkey);
+            return CryptographicOperations.FixedTimeEquals(actualSubkey, expectedSubkey);
         }
         catch (FormatException)
         {
@@ -223,14 +221,5 @@ public static class Crypto
         buffer[offset + 1] = (byte)(value >> 16);
         buffer[offset + 2] = (byte)(value >> 8);
         buffer[offset + 3] = (byte)(value >> 0);
-    }
-
-    private static bool ByteArraysEqual(byte[] a, byte[] b)
-    {
-        if (a == null || b == null || a.Length != b.Length)
-        {
-            return false;
-        }
-        return CryptographicOperations.FixedTimeEquals(a, b);
     }
 }
