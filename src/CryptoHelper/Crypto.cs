@@ -178,8 +178,7 @@ public static class Crypto
             }
 
             // Read the salt.
-            var salt = new byte[saltLength];
-            Buffer.BlockCopy(decodedHashedPassword, 13, salt, 0, salt.Length);
+            var salt = decodedHashedPassword.AsSpan(13, saltLength).ToArray();
 
             // Verify the subkey length >= 128 bits.
             var subkeyLength = decodedHashedPassword.Length - 13 - salt.Length;
