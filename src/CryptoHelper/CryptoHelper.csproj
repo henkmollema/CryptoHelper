@@ -15,11 +15,10 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
-    <AssemblyOriginatorKeyFile>../../CryptoHelper.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/"/>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="10.0.9" />
   </ItemGroup>
 </Project>
