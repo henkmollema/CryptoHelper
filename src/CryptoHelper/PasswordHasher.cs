@@ -7,7 +7,7 @@ namespace CryptoHelper;
 /// <summary>
 /// Provides helper methods for hashing/salting and verifying passwords.
 /// </summary>
-public static class Crypto
+public static class PasswordHasher
 {
     /* =======================
      * HASHED PASSWORD FORMATS
@@ -45,7 +45,8 @@ public static class Crypto
             throw new ArgumentException("Password must not be empty.", nameof(password));
         }
 
-        return HashPasswordInternal(password);
+        var bytes = HashPasswordInternal(password, KeyDerivationPrf.HMACSHA256, PBKDF2IterCount, SaltSize, PBKDF2SubkeyLength);
+        return Convert.ToBase64String(bytes);
     }
 
     /// <summary>
@@ -72,12 +73,6 @@ public static class Crypto
         }
 
         return VerifyHashedPasswordInternal(hashedPassword, password);
-    }
-
-    private static string HashPasswordInternal(string password)
-    {
-        var bytes = HashPasswordInternal(password, KeyDerivationPrf.HMACSHA256, PBKDF2IterCount, SaltSize, PBKDF2SubkeyLength);
-        return Convert.ToBase64String(bytes);
     }
 
     private static byte[] HashPasswordInternal(
@@ -222,4 +217,37 @@ public static class Crypto
         buffer[offset + 2] = (byte)(value >> 8);
         buffer[offset + 3] = (byte)(value >> 0);
     }
+}
+
+/// <summary>
+/// Provides helper methods for hashing/salting and verifying passwords.
+/// </summary>
+/// <remarks>
+/// Please use the new <see cref="PasswordHasher"/> class instead. This class will be removed in a future release.
+/// </remarks>
+[Obsolete("Use the new PasswordHasher class instead. This class will be removed in a future release.")]
+public static class Crypto
+{
+    /// <summary>
+    /// Returns a hashed representation of the specified <paramref name="password"/>.
+    /// </summary>
+    /// <param name="password">The password to generate a hash value for.</param>
+    /// <returns>The hash value for <paramref name="password" /> as a base-64-encoded string.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="password" /> is null.</exception>
+    /// <exception cref="ArgumentException"><paramref name="password" /> is empty.</exception>
+    public static string HashPassword(string password) => PasswordHasher.HashPassword(password);
+
+    /// <summary>
+    /// Determines whether the specified RFC 2898 hash and password are a cryptographic match.
+    /// </summary>
+    /// <param name="hashedPassword">The previously-computed RFC 2898 hash value as a base-64-encoded string.</param>
+    /// <param name="password">The plaintext password to cryptographically compare with hashedPassword.</param>
+    /// <returns>true if the hash value is a cryptographic match for the password; otherwise, false.</returns>
+    /// <remarks>
+    /// <paramref name="hashedPassword" /> must be of the format of HashPassword (salt + Hash(salt+input).
+    /// </remarks>
+    /// <exception cref="System.ArgumentNullException">
+    /// <paramref name="hashedPassword" /> or <paramref name="password" /> is null.
+    /// </exception>
+    public static bool VerifyHashedPassword(string hashedPassword, string password) => PasswordHasher.VerifyHashedPassword(hashedPassword, password);
 }

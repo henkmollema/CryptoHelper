@@ -3,7 +3,7 @@ using Xunit;
 
 namespace CryptoHelper.Tests;
 
-public class CryptoHelperTests
+public class PasswordHasherTests
 {
     private const string Password = "VerySecurePassword";
     private const string HashedPassword = "AQAAAAEAACcQAAAAEMZ9/7LS/Ne7087ytPjCosYJbysRf7DwrKzQziuhtA84k78soJGX0hQzNsNdnIrTNg==";
@@ -11,15 +11,35 @@ public class CryptoHelperTests
     [Fact]
     public void HashPassword_Returns_HashedPassword()
     {
-        var hashed = Crypto.HashPassword(Password);
+        var hashed = PasswordHasher.HashPassword(Password);
         Assert.NotEmpty(hashed);
     }
 
     [Fact]
     public void VerifyHashedPasswordWithCorrectPassword_Returns_CorrectResult()
     {
+        var hashed = PasswordHasher.HashPassword(Password);
+        var result = PasswordHasher.VerifyHashedPassword(hashed, Password);
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void HashPassword_Obsolete()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
         var hashed = Crypto.HashPassword(Password);
+        var result = PasswordHasher.VerifyHashedPassword(hashed, Password);
+#pragma warning restore CS0618 // Type or member is obsolete
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void VerifyHashedPassword_Obsolete()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        var hashed = PasswordHasher.HashPassword(Password);
         var result = Crypto.VerifyHashedPassword(hashed, Password);
+#pragma warning restore CS0618 // Type or member is obsolete
         Assert.True(result);
     }
 
@@ -28,22 +48,22 @@ public class CryptoHelperTests
     {
         // Test that verifies a previously hashed and stored password can
         // still be verified for backwards compatibility.
-        var result = Crypto.VerifyHashedPassword(HashedPassword, Password);
+        var result = PasswordHasher.VerifyHashedPassword(HashedPassword, Password);
         Assert.True(result);
     }
 
     [Fact]
     public void VerifyHashedPasswordWithIncorrectPassword_Returns_CorrectResult()
     {
-        var hashed = Crypto.HashPassword(Password);
-        var result = Crypto.VerifyHashedPassword(hashed, "WrongPassword");
+        var hashed = PasswordHasher.HashPassword(Password);
+        var result = PasswordHasher.VerifyHashedPassword(hashed, "WrongPassword");
         Assert.False(result);
     }
 
     [Fact]
     public void HashPassword_EmptyPassword_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => Crypto.HashPassword(""));
+        Assert.Throws<ArgumentException>(() => PasswordHasher.HashPassword(""));
     }
 
     [Fact]
@@ -51,7 +71,7 @@ public class CryptoHelperTests
     {
         // Craft a hash with HMACSHA1 (prf = 0) — should be rejected.
         var hash = CreateTamperedHash(prf: 0);
-        Assert.False(Crypto.VerifyHashedPassword(hash, Password));
+        Assert.False(PasswordHasher.VerifyHashedPassword(hash, Password));
     }
 
     [Fact]
@@ -59,7 +79,7 @@ public class CryptoHelperTests
     {
         // Craft a hash with only 1 iteration — should be rejected.
         var hash = CreateTamperedHash(iterCount: 1);
-        Assert.False(Crypto.VerifyHashedPassword(hash, Password));
+        Assert.False(PasswordHasher.VerifyHashedPassword(hash, Password));
     }
 
     [Fact]
@@ -67,13 +87,13 @@ public class CryptoHelperTests
     {
         // Craft a hash with an absurdly large salt length.
         var hash = CreateTamperedHash(saltLength: 1_000_000);
-        Assert.False(Crypto.VerifyHashedPassword(hash, Password));
+        Assert.False(PasswordHasher.VerifyHashedPassword(hash, Password));
     }
 
     [Fact]
     public void VerifyHashedPassword_MalformedPayload_ReturnsFalse()
     {
-        Assert.False(Crypto.VerifyHashedPassword(Convert.ToBase64String(new byte[] { 0x01 }), Password));
+        Assert.False(PasswordHasher.VerifyHashedPassword(Convert.ToBase64String(new byte[] { 0x01 }), Password));
     }
 
     /// <summary>
